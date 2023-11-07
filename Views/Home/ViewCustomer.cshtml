@@ -1,0 +1,165 @@
+﻿@model IEnumerable<TaskMedicin.Models.Customer>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Add these scripts to your _Layout.cshtml file -->
+	<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+	<script src="https://cdn.ag-grid.com/ag-grid/latest/ag-grid.min.js"></script>
+	<script src="https://cdn.ag-grid.com/ag-grid/latest/ag-grid-enterprise.min.js"></script>
+	<script src="https://cdn.ag-grid.com/ag-grid/latest/ag-grid-enterprise.min.js/dist/ag-grid-community.min.noStyle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/ag-grid-enterprise@30.2.0/dist/ag-grid-enterprise.min.js">
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<style>
+		#navbarNav{
+			margin-left:450px;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<div>
+			<button onclick="onBtExport()" style="margin-bottom: 5px; font-weight: bold">
+				Export to Excel
+			</button>
+			<button onclick="onBtCsv()" style="margin-bottom: 5px; font-weight: bold">
+				Export to Pdf
+			</button>
+		</div>
+	</div>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/Home/index">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/Home/ListView">Menu</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/Home/Bill">Bill</a>
+					</li>
+
+
+					<li class="nav-item">
+						<a class="nav-link" href="/Home/ViewCustomer">View Appointment</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<div id="grid" style="height: 500px; width: 100%;" class="ag-theme-alpine"></div>
+
+
+	<script>
+		// JavaScript code to configure and populate the AG-Grid
+
+		//var dt = @Html.Raw(Json.Serialize(Model));
+		//console.log(dt);
+		var gridOptions = {
+			columnDefs: [
+				{ headerName: 'CId', field: 'cId', },
+				{ headerName: 'Name', field: 'name' },
+				{ headerName: 'Age', field: 'age' },
+				{ headerName: 'doctorname', field: 'doctorname' },
+				{ headerName: 'DateOfAppoinment', field: 'dateOfBirth' },
+				{ headerName: 'Problem', field: 'problem' },
+				
+				
+				{
+					headerName: 'Actions',
+					cellRenderer: function (params) {
+						//console.log(params);
+						return `<button class="btn-delete" onclick="deleteItem(${params.data.cId})">Delete</button>`;
+					},
+					editable: false,
+				},
+			],
+
+
+			defaultColDef: {
+				sortable: true,
+				filter: true,
+				resizable: true,
+				width: 250,
+				editable: true,
+				cellDataType: false,
+				scrollale: true,
+				toolbar: ["search","pdf"]
+
+
+
+			},
+			rowHeight: 40,
+			pagination: true,
+
+			paginationPageSize: 15,
+			rowData: @Html.Raw(Json.Serialize(Model)),
+
+			onCellValueChanged: function (params) {
+				// Handle cell value changes and send updates to the server
+				$.ajax({
+					url: '/Home/UpdateData',
+					type: 'POST',
+					data: params.data,
+					success: function (response) {
+						if (response.success) {
+							// Update successful, you can provide feedback to the user
+						} else {
+							// Handle update failure
+						}
+					},
+					error: function () {
+						// Handle errors
+					}
+				});
+
+
+			}
+		};
+
+
+		function deleteItem(Id) {
+			// Implement the delete action here (e.g., show a confirmation dialog and then delete)
+			if (confirm('Are you sure you want to delete this item?')) {
+				// Send an AJAX request to delete the item
+				$.ajax({
+					url: '/Home/DeleteData/' + Id,
+					type: 'DELETE',
+					success: function () {
+						// Reload the grid or remove the deleted row
+						location.reload();
+					},
+					error: function () {
+						alert('An error occurred while deleting the item.');
+					},
+				});
+			}
+		}
+
+		function onBtExport() {
+			gridOptions.api.exportDataAsExcel();
+		};
+		function onBtCsv() {
+			gridOptions.api.exportDataAsCsv();
+		}
+
+		// Initialize AG-Grid
+		var gridDiv = document.querySelector("#grid");
+		new agGrid.Grid(gridDiv, gridOptions);
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿@model TaskMedicin.Models.Customer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    .container {
+        width:100%;
+        height:100%;
+    }
+</style>
+<body>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Bill Generator</h2>
+        <form method="post" asp-action="Addmedicin" id="billForm">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="itemName">Medicin Name</label>
+                    <input type="text" class="form-control" id="itemName" placeholder="Enter Medicin Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="itemPrice">Medicin Price</label>
+                    <input type="number" class="form-control" id="itemPrice" placeholder="Enter Medicin Price">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="addItem">Add Medicin</button>
+            <hr>
+            <h3>Bill Details</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Medicin Name</th>
+                        <th>Medicin Price</th>
+                    </tr>
+                </thead>
+                <tbody id="billItems">
+                    <!-- Items will be added here -->
+                </tbody>
+            </table>
+            <h4>Total: <span id="totalAmount">0</span></h4>
+            <button type="button" class="btn btn-success" id="calculateTotal">Calculate Total</button>
+            <button type="button" class="btn btn-success" id="GenerateBill" onclick="window.print()">GenerateBill</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let items = [];
+
+            // Add item to the bill
+            $("#addItem").click(function () {
+                const itemName = $("#itemName").val();
+                const itemPrice = parseFloat($("#itemPrice").val());
+
+                if (itemName && !isNaN(itemPrice)) {
+                    items.push({ name: itemName, price: itemPrice });
+                    $("#billItems").append(`<tr><td>${itemName}</td><td>${itemPrice.toFixed(2)}</td></tr>`);
+                    $("#itemName").val("");
+                    $("#itemPrice").val("");
+                }
+            });
+
+            // Calculate the total bill
+            $("#calculateTotal").click(function () {
+                let total = 0;
+                for (const item of items) {
+                    total += item.price;
+                }
+                $("#totalAmount").text(total.toFixed(2));
+            });
+        });
+    </script>
+
+</body>
+</html>

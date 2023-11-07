@@ -1,0 +1,164 @@
+﻿@model TaskMedicin.Models.User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Doctor Name</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css"> <!-- Create a custom CSS file for your styles -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: navajowhite;
+        }
+
+        .login-container {
+            width: 300px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+            .login-container h2 {
+                text-align: center;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                font-weight: bold;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .register-link {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+            .register-link a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            #i{
+                width:350px;
+                height:350px;
+                margin-top:20px;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/ListView">Doctor's</a>
+                    </li>
+                
+               
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Bill">Medicin Bill</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Customer">Appointment</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/ViewCustomer">View Appointment</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="jumbotron text-center">
+        <h1>Book local Doctors</h1>
+        <p>who take your insurance</p>
+        <a href="/Home/ListView" class="btn btn-primary btn-lg">Top-searched specialties</a>
+
+
+        <div class="container">
+            <div class="row">
+                <!-- Doctor Image -->
+                <div class="col-md-6 Doctor-image">
+                    <img src="/image/dr.jpg.svg" id="i"/>
+                </div>
+                <div class="col-md-6 Doctor-image">
+                    <img src="/image/right.png" id="i" />
+                </div>
+                <!-- Login Form -->
+                @* <div class="col-md-6">
+                    <div class="login-container">
+                        <h2>Login</h2>
+                        <form method="post" action="Login">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" placeholder="Enter your username" asp-for="UserName">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" placeholder="Enter your password" asp-for="Password">
+                            </div>
+                            <div class="btn-container">
+                                <button type="submit" class="login-btn">Login</button>
+                            </div>
+                        </form>
+                       @*  <div class="register-link">
+                            <p>Don't have an account? <a href="/Home/Customer">Register</a></p>
+                        </div> *@
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+
+   
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

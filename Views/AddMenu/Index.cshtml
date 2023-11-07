@@ -1,0 +1,30 @@
+﻿@* @model TaskMedicin.Models.Medicin
+
+@{
+}
+
+<h1>Add Menu</h1>
+<form method="post" action="Index" class="mt-5" enctype="multipart/form-data">
+
+    <div class="mb-3">
+        <label for="" class="form-label">Id</label>
+        <input type="text" class="form-control" id="Id" asp-for="MedicinId">
+
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Name</label>
+        <input type="text" class="form-control" id="Name" asp-for="MedicinName" >
+
+    </div>
+
+    
+    <div class="mb-3">
+        
+        <input type="submit" value="create" id="files" class="btn btn-danger" aria-describedby="emailHelp" >
+
+    </div>
+
+    
+</form>
+
+ *@

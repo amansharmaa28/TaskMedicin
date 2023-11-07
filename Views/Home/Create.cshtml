@@ -1,0 +1,20 @@
+﻿@model TaskMedicin.Models.Medicin
+<form method="post" action="Addmedicin" class="mt-5">
+
+    @* <div class="mb-3">
+        <label for="" class="form-label">MedicinId</label>
+        <input type="text" class="form-control" id="MedicinId" aria-describedby="emailHelp">
+
+    </div> *@
+    <div class="mb-3">
+        <label for="" class="form-label">MedicinName</label>
+        <input type="text" class="form-control" name="MedicinName" asp-for="MedicinName" id="MedicinName" aria-describedby="emailHelp">
+       
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">MedicinPrice</label>
+        <input type="number" class="form-control" id="MedicinPrice" name="MedicinPrice" asp-for="MedicinPrice" aria-describedby="emailHelp">
+        <div/>
+<button class="btn btn-success" type="submit">Submit</button>
+    </form>
