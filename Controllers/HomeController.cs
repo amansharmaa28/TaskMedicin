@@ -132,7 +132,6 @@ namespace TaskMedicin.Controllers
             return Json(new { success = false });
         }
 
-
         [HttpDelete]
         public ActionResult DeleteData(int id)
         {
@@ -143,8 +142,6 @@ namespace TaskMedicin.Controllers
                 taskDemoDbContext.SaveChanges(true);
                 return new JsonResult(true);
             }
-
-
             return View("ViewCustomer");
         }
     }
